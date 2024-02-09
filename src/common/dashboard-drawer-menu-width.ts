@@ -1,0 +1,1 @@
+export const DASHBOARD_DRAWER_MENU_WIDTH = 260;

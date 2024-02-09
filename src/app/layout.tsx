@@ -7,6 +7,7 @@ import {ThemeProvider} from '@mui/material/styles';
 
 import theme from './theme/theme';
 import { CssBaseline } from '@mui/material';
+import Head from 'next/head';
 
 
 export const metadata: Metadata = {
@@ -21,10 +22,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='pt-br'>
+      <head>
+        <link
+          rel='stylesheet'
+          href='https://fonts.googleapis.com/icon?family=Material+Icons'
+        />
+      </head>
       <body>
         <AppRouterCacheProvider options={{key: 'css'}}>
           <CssBaseline />
-
           <ThemeProvider theme={theme}>{children}</ThemeProvider>
         </AppRouterCacheProvider>
       </body>
