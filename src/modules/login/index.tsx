@@ -1,7 +1,7 @@
 'use client';
 
 import { Copyright } from '@/components/molecules/Copyright/Copyright';
-import { useNavigation } from '@/hook/useNavigation';
+import {useHandleSignInRequest} from '@/hook/useHandleSignInRequest';
 import {
   Container,
   Box,
@@ -14,18 +14,7 @@ import {
 
 
 export const Login = () => {
-  
-  const {handleRouter} = useNavigation()
-  
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-    handleRouter('/dashboard')
-  };
+  const {formAction} = useHandleSignInRequest();
 
   return (
     <Container
@@ -39,19 +28,11 @@ export const Login = () => {
         height: '100vh'
       }}
     >
-      <Box
-        sx={{
-          marginTop: 8,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <Typography component='h1' variant='h5'>
+      
+        <Typography component='h1' variant='h4'>
           Entrar
         </Typography>
-        <Box component='form' onSubmit={handleSubmit} noValidate sx={{mt: 1}}>
+        <Box component='form' action={formAction} noValidate>
           <TextField
             margin='normal'
             required
@@ -86,8 +67,7 @@ export const Login = () => {
             Entrar
           </Button>
         </Box>
-      </Box>
-      <Copyright sx={{mt: 8, mb: 4}} />
+      <Copyright />
     </Container>
   );
 };

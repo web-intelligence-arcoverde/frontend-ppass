@@ -1,4 +1,5 @@
 import { DASHBOARD_APP_BAR_AVATAR_MENU } from '@/common/dashboard-app-bar-avatar-menu';
+import { useHandleSignOut } from '@/hook/useHandleSignOut';
 import { Menu, MenuItem, Typography } from '@mui/material';
 
 interface IMenuListAppBar {
@@ -10,6 +11,16 @@ export const MenuListAppBar = ({
   anchorElUser,
   handleCloseUserMenu,
 }: IMenuListAppBar) => {
+  
+  const {handleSignOut} = useHandleSignOut()
+  
+  const handleActionMenu = (setting:string) => {
+    if(setting === "Logout"){
+      handleSignOut()
+    }
+    handleCloseUserMenu()
+  }
+  
   return (
     <Menu
       sx={{mt: '45px'}}
@@ -28,7 +39,7 @@ export const MenuListAppBar = ({
       onClose={handleCloseUserMenu}
     >
       {DASHBOARD_APP_BAR_AVATAR_MENU.map((setting) => (
-        <MenuItem key={setting} onClick={handleCloseUserMenu}>
+        <MenuItem key={setting} onClick={() => handleActionMenu(setting)}>
           <Typography textAlign='center'>{setting}</Typography>
         </MenuItem>
       ))}
