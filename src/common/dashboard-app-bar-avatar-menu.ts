@@ -1,0 +1,1 @@
+export const DASHBOARD_APP_BAR_AVATAR_MENU = ['Account', 'Logout'];
