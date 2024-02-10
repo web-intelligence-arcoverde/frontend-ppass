@@ -1,6 +1,7 @@
 'use client';
 
 import { Copyright } from '@/components/molecules/Copyright/Copyright';
+import { useNavigation } from '@/hook/useNavigation';
 import {
   Container,
   Box,
@@ -13,6 +14,9 @@ import {
 
 
 export const Login = () => {
+  
+  const {handleRouter} = useNavigation()
+  
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -20,6 +24,7 @@ export const Login = () => {
       email: data.get('email'),
       password: data.get('password'),
     });
+    handleRouter('/dashboard')
   };
 
   return (

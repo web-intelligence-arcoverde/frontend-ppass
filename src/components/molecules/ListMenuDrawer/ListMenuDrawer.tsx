@@ -8,7 +8,6 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@mui/material';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
 
 import { useNavigation } from '@/hook/useNavigation';
 
@@ -16,13 +15,13 @@ export const ListMenuDrawer = () => {
   const {handleRouter} = useNavigation();
   return (
     <List>
-      {DASHBOARD_DRAWER_MENU_LIST.map((menuItem) => (
-        <ListItem key={menuItem.name} disablePadding>
-          <ListItemButton onClick={() => handleRouter('/dashboard' + menuItem.path)}>
+      {DASHBOARD_DRAWER_MENU_LIST.map(({name,path,Icon}) => (
+        <ListItem key={name} disablePadding>
+          <ListItemButton onClick={() => handleRouter('/dashboard' + path)}>
             <ListItemIcon>
-              <InboxIcon />
+               <Icon />
             </ListItemIcon>
-            <ListItemText primary={menuItem.name} />
+            <ListItemText primary={name} />
           </ListItemButton>
         </ListItem>
       ))}

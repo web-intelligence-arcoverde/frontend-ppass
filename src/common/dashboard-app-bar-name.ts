@@ -1,5 +1,6 @@
 export const DASHBOARD_APP_BAR_NAME = {
-  visitors: 'Visitantes',
-  users: 'Usuários',
+  visitors: 'Visitante',
+  users: 'Usuário',
   dashboard: 'Dashboard',
+  prisioner: 'Prisioneiro',
 };
