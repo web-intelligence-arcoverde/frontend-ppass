@@ -32,7 +32,7 @@ export const Login = () => {
         <Typography component='h1' variant='h4'>
           Entrar
         </Typography>
-        <Box component='form' action={formAction} noValidate>
+        <Box component='form' action={formAction}>
           <TextField
             margin='normal'
             required
