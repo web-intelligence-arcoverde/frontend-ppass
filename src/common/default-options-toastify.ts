@@ -1,0 +1,3 @@
+
+export const DEFAULT_POSITION_TOASTIFY = 'top-right';
+export const DEFAULT_TIME_AUTO_CLOSE_TOASTIFY = 5000

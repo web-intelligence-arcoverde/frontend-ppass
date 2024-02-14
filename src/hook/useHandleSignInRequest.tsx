@@ -1,10 +1,22 @@
-import { signIn } from '@/actions/sign-in';
-import { useFormState } from 'react-dom';
+import { signInRequestService } from '@/service/auth/sign-in-request-service';
+import { ISignIn } from '@/types/sign-in';
+import { useToastfy } from './useToastfy';
 
 export const useHandleSignInRequest = () => {
-  const [message, formAction] = useFormState(signIn, null);
+  
+  const {errorEmitterToast, successEmitterToast} = useToastfy()
+ 
+  const signInRequest = async (data: ISignIn) => {
+    try {
+      await signInRequestService(data);
+      successEmitterToast('Bem vindo')
+    } catch (error) {
+      errorEmitterToast("Credenciais incorretas")
+    }
+  };
+  
+  
   return {
-    formAction,
-    message
+    signInRequest,
   };
 }

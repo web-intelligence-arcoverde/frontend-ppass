@@ -1,20 +1,23 @@
 'use client';
 
 import { Copyright } from '@/components/molecules/Copyright/Copyright';
-import {useHandleSignInRequest} from '@/hook/useHandleSignInRequest';
+
 import {
   Container,
   Box,
   Typography,
-  TextField,
-  FormControlLabel,
-  Checkbox,
   Button,
 } from '@mui/material';
 
+import { signIn } from './view';
+import { TextInput } from '@/components/atoms/TextInput/TextInput';
+
 
 export const Login = () => {
-  const {formAction} = useHandleSignInRequest();
+  const {onSubmit, control, errors} = signIn();
+  
+  
+  
 
   return (
     <Container
@@ -25,48 +28,43 @@ export const Login = () => {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        height: '100vh'
+        height: '100vh',
       }}
     >
-      
-        <Typography component='h1' variant='h4'>
+      <Typography component='h1' variant='h3'>
+        Entrar
+      </Typography>
+      <Box component='form' onSubmit={onSubmit}>
+        <TextInput
+          control={control}
+          margin='normal'
+          id='email'
+          label='Email'
+          name='email'
+          autoComplete='email'
+          error={!!errors.email}
+          type='email'
+        />
+        <TextInput
+          control={control}
+          name='password'
+          label='Senha'
+          type='password'
+          id='password'
+          autoComplete='current-password'
+          error={!!errors.password}
+        />
+        <Button
+          type='submit'
+          fullWidth
+          disableElevation
+          variant='contained'
+          size='large'
+          sx={{mt: 3, mb: 2}}
+        >
           Entrar
-        </Typography>
-        <Box component='form' action={formAction}>
-          <TextField
-            margin='normal'
-            required
-            fullWidth
-            id='email'
-            label='Email'
-            name='email'
-            autoComplete='email'
-            autoFocus
-          />
-          <TextField
-            margin='normal'
-            required
-            fullWidth
-            name='password'
-            label='Senha'
-            type='password'
-            id='password'
-            autoComplete='current-password'
-          />
-          <FormControlLabel
-            control={<Checkbox value='remember' color='primary' />}
-            label='Lembre-me'
-          />
-          <Button
-            type='submit'
-            fullWidth
-            disableElevation
-            variant='contained'
-            sx={{mt: 3, mb: 2}}
-          >
-            Entrar
-          </Button>
-        </Box>
+        </Button>
+      </Box>
       <Copyright />
     </Container>
   );
