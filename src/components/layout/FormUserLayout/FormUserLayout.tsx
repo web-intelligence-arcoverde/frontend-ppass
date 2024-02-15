@@ -1,63 +1,71 @@
-import { Box, Typography, TextField, Button, Container } from '@mui/material'
+'use client'
 
-interface IFormUserLayout{
-  formAction: () => void;
-  title:string;
-  buttonName:string
+import { TextInput } from '@/components/atoms/TextInput/TextInput';
+import { Box, Typography, Button, Container } from '@mui/material'
+
+interface IFormUserLayout {
+  title: string;
+  buttonName: string;
+  errors: any;
+  onSubmit:() => void;
+  control: any;
+  disabledButton?:boolean;
 }
 
-export const FormUserLayout = ({formAction, title, buttonName}: IFormUserLayout) => {
+export const FormUserLayout = ({
+  title = '',
+  buttonName,
+  disabledButton,
+  errors,
+  onSubmit,
+  control,
+}: IFormUserLayout) => {
   return (
     <Container>
-      <Box component='form' action={formAction}>
+      <Box component='form' onSubmit={onSubmit}>
         <Typography variant='h5'>{title}</Typography>
-        <TextField
+        <TextInput
+          control={control}
           type='text'
-          margin='normal'
-          required
-          fullWidth
-          id='email'
+          id='name'
           label='Nome'
           name='name'
-          autoComplete='email'
-          autoFocus
-        />
-        <TextField
-          type='email'
-          margin='normal'
           required
-          fullWidth
+          error={!!errors?.name}
+        />
+        <TextInput
+          control={control}
+          error={!!errors?.email}
+          type='email'
           id='email'
           label='Email'
           name='email'
-          autoComplete='email'
-          autoFocus
+          required
         />
-        <TextField
-          margin='normal'
-          fullWidth
+        <TextInput
+          control={control}
+          error={!!errors?.password}
           name='password'
           label='Senha'
           type='password'
           id='password'
-          autoComplete='current-password'
         />
-        <TextField
-          margin='normal'
-          fullWidth
-          name='password'
-          label='Repita sua senha'
+        <TextInput
+          control={control}
+          error={!!errors?.confirmPassword}
+          name='confirmPassword'
+          label='Senha'
           type='password'
-          id='password'
-          autoComplete='current-password'
+          id='confirmPassword'
         />
-
         <Button
           type='submit'
           fullWidth
           disableElevation
           variant='contained'
           sx={{mt: 3, mb: 2}}
+          disabled={!disabledButton}
+          size='large'
         >
           {buttonName}
         </Button>

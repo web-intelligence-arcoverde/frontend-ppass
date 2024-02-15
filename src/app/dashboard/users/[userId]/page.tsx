@@ -1,34 +1,28 @@
-"use server"
 
-import { signOut } from '@/actions/sign-out';
-import { FormUserLayout } from '@/components/layout/FormUserLayout/FormUserLayout';
+import EditUserComponent from "@/modules/users/edit/index"
+import { getUserByIdRequest } from '@/service/user/get-user-by-id';
+import { Suspense } from 'react';
 
-interface UserParams{
-  userId: string
+interface UserParams {
+  userId: string;
 }
 
-interface IEditUser{
-  params: UserParams
+interface IEditUser {
+  params: UserParams;
 }
 
-async function getUserRequest(params:string) {
-  console.log(params)
-  return {}
-}
 
-async function EditUser({params}: Readonly<IEditUser>){
-  const user = await getUserRequest(params.userId);
-  console.log(user);
+export default async function EditUser({params}: Readonly<IEditUser>) {
   
-  const handleSubmit = () => {}
+  const { userId } = params
+  
+  const data = await getUserByIdRequest(userId);
+  
+  console.log(data);
   
   return (
-    <FormUserLayout
-      title='Editar usuário'
-      buttonName='Atualizar'
-      formAction={signOut}
-    />
+    <Suspense fallback={<>Loading...</>}>
+      <EditUserComponent user={data} />
+    </Suspense>
   );
 }
-
-export default EditUser

@@ -1,63 +1,19 @@
-import {Box, Button, Container, TextField, Typography} from '@mui/material';
+'use client';
+
+import { FormUserLayout } from '@/components/layout/FormUserLayout/FormUserLayout';
+import { useHandleCreateUser } from '@/hook/useHandleCreateUser';
 
 export const CreateUser = () => {
-  return (
-    <Container style={{width:"100vw"}}>
-      <Box component='form'>
-        <Typography variant='h5'>Criar usuário</Typography>
-        <TextField
-          type='text'
-          margin='normal'
-          required
-          fullWidth
-          id='email'
-          label='Nome'
-          name='name'
-          autoComplete='email'
-          autoFocus
-        />
-        <TextField
-          type='email'
-          margin='normal'
-          required
-          fullWidth
-          id='email'
-          label='Email'
-          name='email'
-          autoComplete='email'
-          autoFocus
-        />
-        <TextField
-          margin='normal'
-          required
-          fullWidth
-          name='password'
-          label='Senha'
-          type='password'
-          id='password'
-          autoComplete='current-password'
-        />
-        <TextField
-          margin='normal'
-          required
-          fullWidth
-          id='email'
-          label='Email'
-          name='email'
-          autoComplete='email'
-          autoFocus
-        />
+  const { onSubmit , disabled, errors, control} = useHandleCreateUser()
 
-        <Button
-          type='submit'
-          fullWidth
-          disableElevation
-          variant='contained'
-          sx={{mt: 3, mb: 2}}
-        >
-          Criar
-        </Button>
-      </Box>
-    </Container>
+  return (
+    <FormUserLayout
+      title={'Criar usuário'}
+      buttonName={'Criar'}
+      errors={errors}
+      onSubmit={onSubmit}
+      disabledButton={disabled}
+      control={control}
+    />
   );
 };
