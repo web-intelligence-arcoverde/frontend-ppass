@@ -1,17 +1,21 @@
 'use client';
 
 import {useForm} from 'react-hook-form';
-
 import {zodResolver} from '@hookform/resolvers/zod';
-
 import {z} from 'zod';
+
 import {isObjectEmpty} from '@/util/check-is-object-empty';
+import { updateUserService } from '@/service/user/update-user-service';
+import { useNavigation } from './useNavigation';
+
+import { useToastfy } from './useToastfy';
 
 const createUserSchema = z
   .object({
     name: z.string(),
     email: z.string().email(),
     password: z.string(),
+    status: z.boolean(),
     confirmPassword: z.string(),
   })
   .refine((data) => data.password === data.confirmPassword, {
@@ -33,11 +37,17 @@ export const useHandleUpdateUser = (user: any) => {
       email: user.email,
       password: '',
       confirmPassword: '',
+      status:user.status
     },
   });
+  
+  const {handleRouter} = useNavigation()
+  const {successEmitterToast} = useToastfy()
 
-  const handleUpdateUser = (data: User) => {
-    console.log({data});
+  const handleUpdateUser = async(data: User) => {
+    await updateUserService({...data,id:user.id})
+    handleRouter('/dashboard/users')
+    successEmitterToast('Usuário atualizado com sucesso')
   };
 
   const disabledButton = isObjectEmpty(errors);

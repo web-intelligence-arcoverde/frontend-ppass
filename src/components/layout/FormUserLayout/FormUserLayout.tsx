@@ -1,15 +1,18 @@
-'use client'
+'use client';
 
-import { TextInput } from '@/components/atoms/TextInput/TextInput';
-import { Box, Typography, Button, Container } from '@mui/material'
+import { DEFAULT_STATUS_USER } from '@/common/default-status-user';
+import {CustomSelect} from '@/components/atoms/Select/Select';
+import {TextInput} from '@/components/atoms/TextInput/TextInput';
+import {Box, Typography, Button, Container} from '@mui/material';
+import {usePathname} from 'next/navigation';
 
 interface IFormUserLayout {
   title: string;
   buttonName: string;
   errors: any;
-  onSubmit:() => void;
+  onSubmit: () => void;
   control: any;
-  disabledButton?:boolean;
+  disabledButton?: boolean;
 }
 
 export const FormUserLayout = ({
@@ -20,11 +23,17 @@ export const FormUserLayout = ({
   onSubmit,
   control,
 }: IFormUserLayout) => {
+  const pathname = usePathname().split('/');
+  const lastPathname = pathname[pathname.length - 1];
+
+  const isCreateUserPage = lastPathname === 'create';
+
   return (
     <Container>
       <Box component='form' onSubmit={onSubmit}>
         <Typography variant='h5'>{title}</Typography>
         <TextInput
+          sx={{mt: 6}}
           control={control}
           type='text'
           id='name'
@@ -49,15 +58,26 @@ export const FormUserLayout = ({
           label='Senha'
           type='password'
           id='password'
+          required={isCreateUserPage}
         />
         <TextInput
           control={control}
           error={!!errors?.confirmPassword}
           name='confirmPassword'
-          label='Senha'
+          label='Confirmação de senha'
           type='password'
           id='confirmPassword'
+          required={isCreateUserPage}
         />
+        {!isCreateUserPage ? (
+          <CustomSelect
+            control={control}
+            name='status'
+            label='Status'
+            items={DEFAULT_STATUS_USER}
+            error={!!errors?.status}
+          />
+        ) : null}
         <Button
           type='submit'
           fullWidth

@@ -20,7 +20,6 @@ export const TextInput = ({name,
           value={value}
           onChange={onChange}
           margin='normal'
-          required
           fullWidth
           autoFocus
           InputLabelProps={{shrink: true}}

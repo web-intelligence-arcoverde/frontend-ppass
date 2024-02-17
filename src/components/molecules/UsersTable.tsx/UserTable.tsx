@@ -24,9 +24,7 @@ export default async function UserTable({
         {
           title: 'Status',
           field: 'status',
-          render: (status: boolean) => (
-            <TableCustomColumnStatus status={status} />
-          ),
+          render: (user: any) => <TableCustomColumnStatus user={user} />,
         },
       ]}
       data={data}

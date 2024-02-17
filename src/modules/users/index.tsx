@@ -3,12 +3,13 @@
 import * as React from 'react';
 import { useNavigation } from '@/hook/useNavigation';
 import UserTable from '@/components/molecules/UsersTable.tsx/UserTable';
+import { deleteUserService } from '@/service/user/delete-user-service';
+import { DialogDeleteUser } from '@/components/molecules/DialogDeleteUser/DialogDeleteUser';
 
 
 export default function Users() {
   const {handleRouter} = useNavigation()
-  
- 
+  const[visibleDialogDeleteUser, setVisibleDialogDeleteUser] = React.useState(false)
   
   const handleRouterToCreateUser = () => {
     handleRouter('/dashboard/users/create');
@@ -18,8 +19,18 @@ export default function Users() {
     handleRouter(`/dashboard/users/${userId}`);
   };
   
-  const handleDeleteUser = (userId: number) => {
-    console.log('delete User', userId);
+  const handleClickOpen = () => {
+    setVisibleDialogDeleteUser(true)
+  }
+  
+   const handleClickClose = () => {
+     setVisibleDialogDeleteUser(false);
+   };
+  
+  
+  const handleDeleteUser = async(userId: number) => {
+    handleClickOpen()
+    // await deleteUserService(userId)
   };
   
   return (
@@ -28,6 +39,10 @@ export default function Users() {
         handleRouterToCreateUser={handleRouterToCreateUser}
         handleRouterToEditUser={handleRouterToEditUser}
         handleDeleteUser={handleDeleteUser}
+      />
+      <DialogDeleteUser
+        open={visibleDialogDeleteUser}
+        handleClickClose={handleClickClose}
       />
     </React.Suspense>
   );

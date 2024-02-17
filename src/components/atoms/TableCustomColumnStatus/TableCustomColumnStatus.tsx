@@ -1,12 +1,9 @@
 
-interface ITableCustomColumnStatus{
-  status:boolean
-}
+export const TableCustomColumnStatus = ({user}: any) => {
 
-export const TableCustomColumnStatus = ({status}: ITableCustomColumnStatus) => {
   return (
-    <label style={{color: status ? '#3498db' : '#e74c3c'}}>
-      {status ? 'Ativo' : 'Desabilitado'}
+    <label style={{color: user.status ? '#3498db' : '#e74c3c'}}>
+      {user.status ? 'Ativo' : 'Desativado'}
     </label>
   );
 };
